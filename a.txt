@@ -1,0 +1,5 @@
+rafc - boiler plate code for adding the component
+react router dom - 
+lucide-react - 
+react-player-
+react-hot-toast-
