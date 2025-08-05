@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { dummyTrailers } from '../assets/assets'
 import ReactPlayer from 'react-player'
 import BlurCircle from './BlurCircle'
+import { PlayCircleIcon } from 'lucide-react'
 
 const TrailerSection = () => {
 
@@ -21,6 +22,15 @@ const TrailerSection = () => {
                 height='540px'
             />
         )}
+      </div>
+
+      <div className=' group grid grid-cols-4 gap-4 md:gap-8 mt-8 max-w-3xl mx-auto'>
+        {dummyTrailers.map( (trailer) => (
+          <div>
+            <img src={trailer.image} alt='trailer' className=' rounded-lg w-full h-full object-cover brightness-75'/>
+            <PlayCircleIcon className=' absolute top-1/2 left-1/2 w-5 md:w-8 h-5 md:h-12'/>
+          </div>
+        ))}
       </div>
     </div>
   )
