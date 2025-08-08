@@ -72,7 +72,7 @@ const MovieDetail = () => {
           </div>
         </div>
           
-          {/* <DateSelect dateTime={show.dateTime} id={id}/> */}
+          <DateSelect dateTime={show.dateTime} id={id}/>
 
     </div>
   ) : <div>Loading....</div>
