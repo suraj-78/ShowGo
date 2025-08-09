@@ -15,10 +15,14 @@ const MovieDetail = () => {
 
   const getShow = async () => {
     const show = dummyShowsData.find(show => show._id === id);
-    setShow({
+    if(show)
+    {
+      setShow({
       movie : show, 
       dateTime : dummyDateTimeData
-    })
+      })
+    }
+    
   }
   // using useEffect so that whenever the show changes the component shoud rerender
 
