@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { dummyDateTimeData, dummyShowsData } from '../assets/assets';
 import BlurCircle from '../components/BlurCircle';
 import { Heart, PlayCircleIcon, StarIcon } from 'lucide-react';
@@ -8,6 +8,8 @@ import DateSelect from '../components/DateSelect';
 import MovieCard from '../components/MovieCard';
 
 const MovieDetail = () => {
+
+  const navigate = useNavigate();
   const {id} = useParams()
   const [show, setShow] = useState(null);
 
@@ -81,6 +83,10 @@ const MovieDetail = () => {
             {dummyShowsData.slice(0, 4).map((movie, index) => (
               <MovieCard key={index} movie={movie}/>
             ))}
+          </div>
+
+          <div className='flex justify-center mt-20'>
+            <button className='px-10 py-3 text-sm bg-primary hover:bg-primary-dull transition rounded-md font-medium cursor-pointer' onClick={() =>{ navigate('/movies'); scrollTo(0, 0)}}>Show more</button>
           </div>
     </div>
   ) : <div>Loading....</div>
