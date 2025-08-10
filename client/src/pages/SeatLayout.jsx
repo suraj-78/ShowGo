@@ -9,6 +9,8 @@ import toast from 'react-hot-toast';
 
 const SeatLayout = () => {
 
+  const groupRows = [["A", "B"], ["C", "D"], ["E", "F"], ["G", "H"], ["I", "J"]]
+
   const {id, date} = useParams();
 
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -85,9 +87,26 @@ const SeatLayout = () => {
       <div className=' relative flex-1 flex flex-col items-center max-md:mt-16'>
           <BlurCircle top='-100px' left='-100px' />
           <BlurCircle bottom='0' right='0' />
-          <h1 className='text-2xl font-semibold mb-4'>select Your Seat</h1>
+          <h1 className='text-2xl font-semibold mb-4'>Select Your Seat</h1>
           <img src={assets.screenImage} alt='screen'></img>
           <p >SCREEN SIDE</p>
+
+          <div className='flex flex-col items-center mt-10 text-xs text-gray-300'>
+            <div className='grid grid-cols-2 md:grid-cols-1 gap-8 md:gap-2 mb-6'>
+              {groupRows[0].map(row => renderSeats(row))}
+            </div>
+            
+            <div className='grid grid-cols-2 gap-11'>
+            {groupRows.slice(1).map((group, idx) => (
+              <div key={idx}> 
+                {group.map(row => renderSeats(row))}
+              </div>
+            ))}
+          </div>
+          </div>
+
+          
+
       </div>
       
     </div>
