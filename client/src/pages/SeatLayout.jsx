@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate , useParams} from 'react-router-dom';
-import { dummyDateTimeData, dummyShowsData } from '../assets/assets';
+import { assets, dummyDateTimeData, dummyShowsData } from '../assets/assets';
 import Loading from '../components/Loading';
 import { ClockIcon } from 'lucide-react';
 import isoTimeFormat from '../lib/isoTimeFormat';
+import BlurCircle from '../components/BlurCircle';
+import toast from 'react-hot-toast';
 
 const SeatLayout = () => {
 
@@ -13,6 +15,37 @@ const SeatLayout = () => {
   const [selectedTime, setSelectedTime] = useState(null);
 
   const [show, setShow] = useState(null);
+
+
+  const handleSeatClick = (seatId) => {
+    if(!selectedTime) 
+    {
+      return toast("Please select the time first");
+    }
+
+    if(selectedSeats.includes(seatId) && selectedSeats.length > 4)
+    {
+      return toast("You can only select 5 seats");
+    }
+
+    setSelectedSeats( prev => prev.includes(seatId) ? prev.filter(seat => seat !== seatId) : [...prev, seatId]);
+  }
+
+  const renderSeats = (row, count = 9) => (
+    <div key={row} className='flex gap-2 mt-2'>
+      <div className='flex flex-wrap items-center justify-center gap-2'>
+        {Array.from({length: count}, (_, i) => {
+          const seatId = `${row}${i + 1}`;
+          return (
+            <button key={seatId} onClick={() => handleSeatClick(seatId)}
+            className={`h-8 w-8 rounded border border-primary/60 cursor-pointer ${selectedSeats.includes(seatId) && " bg-primary text-white"}`}>
+              {seatId}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  )
 
   // function to fetch the show data from the id
   const getShow = async() => {
@@ -38,7 +71,7 @@ const SeatLayout = () => {
         <p className='text-lg font-semibold px-6'>Available Timings</p>
         <div className='mt-5 space-y-1'>
           {show.dateTime[date].map((item) => (
-            <div className={`flex items-center gap-2 px-6 py-2 w-max rounded-r-md cursor-pointer transition
+            <div key={item.time} onClick={() => setSelectedTime(item)} className={`flex items-center gap-2 px-6 py-2 w-max rounded-r-md cursor-pointer transition
              ${selectedTime?.time === item.time ? "bg-primary text-white" : "hover:bg-primary/20"}`}>
               <ClockIcon className='w-4 h-4'/>
               <p className='text-sm'>{isoTimeFormat(item.time)}</p>
@@ -49,8 +82,12 @@ const SeatLayout = () => {
 
       {/* 2.Seat Layout  */}
 
-      <div>
-
+      <div className=' relative flex-1 flex flex-col items-center max-md:mt-16'>
+          <BlurCircle top='-100px' left='-100px' />
+          <BlurCircle bottom='0' right='0' />
+          <h1 className='text-2xl font-semibold mb-4'>select Your Seat</h1>
+          <img src={assets.screenImage} alt='screen'></img>
+          <p >SCREEN SIDE</p>
       </div>
       
     </div>
