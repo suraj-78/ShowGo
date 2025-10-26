@@ -1,4 +1,4 @@
-import { image } from "framer-motion/client";
+
 import { Inngest } from "inngest"
 import User from "../models/User.js";
 
